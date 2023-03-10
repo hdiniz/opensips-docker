@@ -25,6 +25,7 @@ find_binaries() {
 FILES=$(mktemp)
 BINARY_LIST=$(mktemp)
 
+cp /usr/lib/postgresql/13/bin/psql /usr/build/prefix/sbin
 find /usr/build/prefix > $FILES
 find_binaries $FILES > $BINARY_LIST
 

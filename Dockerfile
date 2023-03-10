@@ -4,6 +4,7 @@ RUN apt-get update
 # Adapted https://github.com/signalwire/freeswitch/blob/v1.10.9/docker/examples/Debian11/Dockerfile#L12
 RUN apt-get -yq install \
     git build-essential flex bison make pkg-config libncurses5-dev m4 \
+    postgresql-client \
     # gcc bison flex make sed tr \
 # TLS support
     libssl-dev \
@@ -39,8 +40,8 @@ RUN mkdir -p /usr/src/opensips && \
 
 WORKDIR /usr/src/opensips
 RUN mkdir -p /usr/build/prefix && \
-    make opensips modules prefix= && \
-    make install basedir=/usr/build/prefix prefix=
+    make opensips modules prefix= include_modules=db_postgres && \
+    make install basedir=/usr/build/prefix prefix= include_modules=db_postgres
 ADD create-min-root.sh .
 RUN ./create-min-root.sh
 
